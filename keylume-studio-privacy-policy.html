@@ -4,49 +4,169 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — KeyLume Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; color: #333; line-height: 1.7; }
-  h1 { font-size: 1.5rem; margin-bottom: 4px; }
-  h2 { font-size: 1.1rem; margin-top: 28px; color: #555; }
-  .subtitle { color: #888; font-size: 0.95rem; margin-bottom: 32px; }
-  p { margin-bottom: 12px; }
-  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 0.85rem; color: #888; }
+:root {
+  --gold:#c8973e; --gold-light:#ddb45e; --gold-pale:#f5e6c8;
+  --cream:#faf6ef; --warm:#fdfbf7; --bark:#2e2118; --bark-mid:#5c4a36; --bark-soft:#8a7a69;
+  --border:rgba(200,151,62,0.18); --border-s:rgba(200,151,62,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--bark);line-height:1.75;font-weight:300;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,246,239,0.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--bark);letter-spacing:0.1em;text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:var(--bark-soft);font-weight:400;transition:color 0.3s}
+.nav-links a:hover{color:var(--gold)}
+
+.hero{position:relative;background:var(--bark);margin-top:54px}
+.hero-banner{width:100%;display:block}
+.hero-intro{background:var(--bark);padding:32px 48px 36px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hero-icon{width:56px;height:56px;border-radius:12px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.1);flex-shrink:0}
+.hero-text h1{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:white;letter-spacing:0.04em;line-height:1.2}
+.hero-text h1 em{font-style:italic;color:var(--gold-light)}
+.hero-text p{color:rgba(255,255,255,0.5);font-size:0.88rem;font-weight:300;margin:0}
+.hero-back{margin-left:auto}
+.hero-back a{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;padding:10px 24px;border-radius:100px;font-weight:500;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);transition:all 0.35s}
+.hero-back a:hover{background:rgba(255,255,255,0.08);color:white;border-color:rgba(255,255,255,0.4)}
+
+.container{max-width:760px;margin:0 auto;padding:0 32px}
+section{padding:64px 0}
+.section-label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px;display:block}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:300;color:var(--bark);margin-bottom:18px;letter-spacing:0.02em;line-height:1.35}
+h2 em{font-style:italic;color:var(--gold);font-weight:400}
+h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--bark);margin-top:28px;margin-bottom:8px}
+p{color:var(--bark-mid);margin-bottom:14px;font-size:0.92rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--bark);font-weight:500}
+a{color:var(--gold)}
+.updated{color:var(--bark-soft);font-size:0.85rem;margin-bottom:32px;display:block}
+.divider{height:1px;background:linear-gradient(90deg,transparent 5%,var(--border-s) 50%,transparent 95%);max-width:760px;margin:0 auto}
+
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.privacy-card{background:var(--warm);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;gap:10px;align-items:flex-start}
+.privacy-card .check{color:var(--gold);font-weight:700;font-size:1rem;flex-shrink:0;margin-top:1px}
+.privacy-card p{font-size:0.85rem;line-height:1.55;margin:0}
+
+footer{padding:48px 32px;text-align:center;border-top:1px solid var(--border)}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--bark);letter-spacing:0.1em;margin-bottom:6px}
+.footer-brand em{color:var(--gold);font-style:normal}
+footer p{font-size:0.76rem;color:var(--bark-soft)}
+.footer-links{margin-top:12px;display:flex;gap:20px;justify-content:center}
+.footer-links a{font-size:0.76rem;text-decoration:none;color:var(--bark-soft);transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+
+@media(max-width:640px){
+  .hero-intro{padding:24px 20px 28px;flex-direction:column;align-items:flex-start;gap:14px}
+  .hero-back{margin-left:0}
+  .hero-icon{width:48px;height:48px}
+  .privacy-grid{grid-template-columns:1fr}
+  .nav-links{gap:16px}
+  .topnav{padding:14px 20px}
+  .container{padding:0 20px}
+}
 </style>
 </head>
 <body>
-<h1>KeyLume Studio — Privacy Policy</h1>
-<p class="subtitle">Last updated: April 19, 2026</p>
 
-<h2>Introduction</h2>
-<p>This privacy policy describes how KeyLume Studio ("we", "us", "our") handles data in connection with our applications, including the KeyLume Automation Pinterest integration and the KeyLume Listing Manager tool.</p>
+<nav class="topnav">
+  <a href="https://keylumestudio.github.io/keylume-listing-manager/" class="nav-logo">KEY<span>LUME</span> STUDIO</a>
+  <div class="nav-links">
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/#gallery">Gallery</a>
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/#tools">Tools</a>
+    <a href="#privacy">Privacy</a>
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/#contact">Contact</a>
+  </div>
+</nav>
 
-<h2>Data We Collect</h2>
-<p>KeyLume Studio does not collect, store, or process personal information from any users, buyers, or visitors. Our tools are private, single-user applications used exclusively by the owner of KeyLume Studio.</p>
+<header class="hero">
+  <img src="keylume-banner-v2.jpg" alt="KeyLume Studio" class="hero-banner">
+  <div class="hero-intro">
+    <img src="keylume-icon-v2.jpg" alt="KL" class="hero-icon">
+    <div class="hero-text">
+      <h1>Privacy <em>Policy</em></h1>
+      <p>How KeyLume Studio handles your data</p>
+    </div>
+    <div class="hero-back">
+      <a href="https://keylumestudio.github.io/keylume-listing-manager/">← Back to Studio</a>
+    </div>
+  </div>
+</header>
 
-<h2>Third-Party Services</h2>
-<p>Our applications connect to third-party platforms including Etsy and Pinterest through their official APIs. We access only the data necessary to manage our own shop listings and publish pins for our own art collections. We do not access, collect, or store data belonging to other users of these platforms.</p>
+<section id="privacy">
+  <div class="container">
+    <span class="section-label">Privacy Policy</span>
+    <h2>Your privacy, <em>respected</em></h2>
+    <span class="updated">Last updated: April 19, 2026</span>
 
-<h2>Data Sharing</h2>
-<p>No information obtained through any API or platform integration is shared, sold, or disclosed to third parties under any circumstances.</p>
+    <h3>Introduction</h3>
+    <p>This privacy policy describes how KeyLume Studio ("we", "us", "our") handles data in connection with our applications, including the KeyLume Listing Manager for Etsy, the KeyLumeStudio Automation Pinterest integration, and any related tools.</p>
 
-<h2>Data Storage &amp; Security</h2>
-<p>API credentials and OAuth tokens are stored securely on private infrastructure. All cached data can be deleted at any time. Revoking API access immediately terminates all data access.</p>
+    <h3>Data We Collect</h3>
+    <p>KeyLume Studio does not collect, store, or process personal information from any users, buyers, or visitors. Our tools are private, single-user applications used exclusively by the owner of KeyLume Studio.</p>
 
-<h2>Cookies &amp; Tracking</h2>
-<p>KeyLume Studio applications do not use cookies, analytics, tracking pixels, or any form of user tracking.</p>
+    <h3>Third-Party Services</h3>
+    <p>Our applications connect to third-party platforms including Etsy and Pinterest through their official APIs. We access only the data necessary to manage our own shop listings and publish pins for our own art collections. We do not access, collect, or store data belonging to other users of these platforms.</p>
 
-<h2>Children's Privacy</h2>
-<p>Our applications are not directed at children under 13 and we do not knowingly collect information from children.</p>
+    <h3>Data Sharing</h3>
+    <p>No information obtained through any API or platform integration is shared, sold, or disclosed to third parties under any circumstances.</p>
 
-<h2>Changes to This Policy</h2>
-<p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated revision date.</p>
+    <h3>Data Storage & Security</h3>
+    <p>API credentials and OAuth tokens are stored securely on private infrastructure. All cached data can be deleted at any time. Revoking API access immediately terminates all data access.</p>
 
-<h2>Contact</h2>
-<p>If you have questions about this privacy policy, you can reach us at keylumestudio@gmail.com.</p>
+    <h3>Cookies & Tracking</h3>
+    <p>KeyLume Studio applications do not use cookies, analytics, tracking pixels, or any form of user tracking.</p>
+
+    <h3>Children's Privacy</h3>
+    <p>Our applications are not directed at children under 13 and we do not knowingly collect information from children.</p>
+
+    <h3>Changes to This Policy</h3>
+    <p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated revision date.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <span class="section-label">At a Glance</span>
+    <h2>Our <em>commitments</em></h2>
+    <div class="privacy-grid">
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No personal data collected.</strong> We do not collect, store, or process personal information from any buyers, visitors, or platform users.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No data sharing.</strong> No information obtained through any API is shared, sold, or disclosed to third parties.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Secure storage.</strong> API credentials and OAuth tokens are encrypted and stored securely on private infrastructure.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Data deletion.</strong> All cached data can be deleted at any time. Revoking API access terminates all data access.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No cookies or tracking.</strong> Our applications do not use cookies, analytics, tracking pixels, or any monitoring.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Children's privacy.</strong> Our applications are not directed at children under 13 and we do not knowingly collect their information.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <span class="section-label">Questions?</span>
+    <h2>Contact <em>KeyLume</em> Studio</h2>
+    <p>If you have questions about this privacy policy, you can reach us at <a href="mailto:keylumestudio@gmail.com" style="text-decoration:none;">keylumestudio@gmail.com</a>.</p>
+  </div>
+</section>
 
 <footer>
-  <p>&copy; 2026 KeyLume Studio. All rights reserved.</p>
-  <p><a href="https://www.etsy.com/shop/KeyLumeStudio">Etsy Shop</a> &middot; <a href="https://keylumestudio.github.io/keylume-listing-manager/">Home</a></p>
+  <div class="footer-brand">KEY<em>LUME</em> STUDIO</div>
+  <p>Original impasto digital art for modern spaces</p>
+  <p>© 2026 KeyLume Studio. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/">Home</a>
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/#gallery">Gallery</a>
+    <a href="https://keylumestudio.github.io/keylume-listing-manager/#privacy-policy">Main Site Privacy</a>
+    <a href="https://www.etsy.com/shop/KeyLumeStudio">Etsy</a>
+  </div>
 </footer>
+
 </body>
 </html>
