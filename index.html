@@ -3,401 +3,367 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KeyLume Studio Listing Manager</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@300;600;700&display=swap" rel="stylesheet">
+<title>KeyLume Studio — Original Impasto Digital Art</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0e1117;
-    --surface: #161b22;
-    --surface-hover: #1c2129;
-    --border: #30363d;
-    --text: #e6edf3;
-    --text-muted: #8b949e;
-    --accent: #f5a623;
-    --accent-dim: rgba(245,166,35,0.12);
-    --accent-glow: rgba(245,166,35,0.25);
-    --green: #3fb950;
-    --green-dim: rgba(63,185,80,0.12);
-  }
+:root {
+  --gold:#c8973e; --gold-light:#ddb45e; --gold-pale:#f5e6c8; --gold-glow:rgba(200,151,62,0.12);
+  --cream:#faf6ef; --warm:#fdfbf7; --bark:#2e2118; --bark-mid:#5c4a36; --bark-soft:#8a7a69;
+  --slate:#4a5568; --border:rgba(200,151,62,0.18); --border-s:rgba(200,151,62,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--bark);line-height:1.75;font-weight:300;overflow-x:hidden}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* grain */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* ═══ NAV ═══ */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;transition:background 0.4s,box-shadow 0.4s}
+.topnav.scrolled{background:rgba(250,246,239,0.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--warm);letter-spacing:0.1em;text-decoration:none;transition:color 0.3s}
+.nav-logo span{color:var(--gold-light)}
+.topnav.scrolled .nav-logo{color:var(--bark)}
+.topnav.scrolled .nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,0.7);font-weight:400;transition:color 0.3s}
+.topnav.scrolled .nav-links a{color:var(--bark-soft)}
+.nav-links a:hover{color:var(--gold)}
 
-  /* Subtle grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(245,166,35,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245,166,35,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
+/* ═══ HERO ═══ */
+.hero{position:relative;height:70vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url('keylume-banner-v2.jpg') center/cover no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,20,12,0.7) 0%,rgba(30,20,12,0.15) 50%,rgba(30,20,12,0.3) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:720px;animation:fadeUp 1s ease-out both}
+.hero-icon{width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.15)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;color:white;letter-spacing:0.04em;margin-bottom:8px;line-height:1.2}
+.hero h1 em{font-style:italic;color:var(--gold-light)}
+.hero-sub{color:rgba(255,255,255,0.75);font-size:1rem;font-weight:300;margin-bottom:28px}
+.hero-cta{display:inline-flex;gap:12px;flex-wrap:wrap}
+.hero-cta a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:12px 28px;border-radius:100px;font-weight:500;transition:all 0.35s}
+.btn-primary{background:var(--gold);color:var(--warm);border:1px solid var(--gold)}
+.btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(200,151,62,0.4)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.3)}
+.btn-ghost:hover{background:rgba(255,255,255,0.1);color:white;border-color:rgba(255,255,255,0.5)}
 
-  .container {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
+/* ═══ SECTIONS ═══ */
+.container{max-width:800px;margin:0 auto;padding:0 32px}
+section{padding:80px 0}
+.section-label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px;display:block}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:300;color:var(--bark);margin-bottom:20px;letter-spacing:0.02em;line-height:1.35}
+h2 em{font-style:italic;color:var(--gold);font-weight:400}
+p{color:var(--bark-mid);margin-bottom:14px;font-size:0.92rem}
+p:last-child{margin-bottom:0}
+strong{color:var(--bark);font-weight:500}
+.divider{height:1px;background:linear-gradient(90deg,transparent 5%,var(--border-s) 50%,transparent 95%);max-width:800px;margin:0 auto}
 
-  /* ── Header ── */
-  header {
-    padding: 48px 0 40px;
-    border-bottom: 1px solid var(--border);
-  }
+/* ═══ ABOUT ═══ */
+.about-lead{font-family:'Cormorant Garamond',serif;font-size:1.2rem;line-height:1.9;color:var(--bark-mid);font-weight:400}
 
-  .logo-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 8px;
-  }
+/* ═══ GALLERY ═══ */
+.gallery-section{background:var(--bark);padding:80px 0}
+.gallery-section .section-label{color:var(--gold-light)}
+.gallery-section h2{color:var(--gold-pale)}
+.gallery-section h2 em{color:var(--gold-light)}
+.gallery-section p{color:rgba(255,255,255,0.55)}
 
-  .logo-icon {
-    width: 44px;
-    height: 44px;
-    background: var(--accent-dim);
-    border: 1px solid rgba(245,166,35,0.3);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
+.collection-tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.tab{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;padding:8px 20px;border-radius:100px;border:1px solid rgba(200,151,62,0.3);color:rgba(255,255,255,0.5);background:transparent;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.3s;font-weight:400}
+.tab:hover{color:var(--gold-light);border-color:var(--gold)}
+.tab.active{background:var(--gold);color:var(--warm);border-color:var(--gold)}
 
-  h1 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 1.6rem;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gallery-item{border-radius:10px;overflow:hidden;aspect-ratio:1;position:relative;cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease,filter 0.4s}
+.gallery-item:hover img{transform:scale(1.06);filter:brightness(1.08)}
+.gallery-item .item-label{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(0deg,rgba(0,0,0,0.7),transparent);opacity:0;transition:opacity 0.3s;font-size:0.78rem;color:rgba(255,255,255,0.85);letter-spacing:0.04em}
+.gallery-item:hover .item-label{opacity:1}
 
-  h1 span { color: var(--accent); }
+.gallery-collection{display:none}
+.gallery-collection.active{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 
-  .tagline {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    margin-top: 6px;
-    font-weight: 400;
-  }
+/* ═══ FEATURES ═══ */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.feature{background:var(--warm);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all 0.4s;position:relative;overflow:hidden}
+.feature::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
+.feature:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,151,62,0.08)}
+.feature:hover::after{transform:scaleX(1)}
+.feature h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--bark);margin-bottom:6px}
+.feature p{font-size:0.85rem;line-height:1.55;margin:0}
 
-  /* ── Sections ── */
-  section {
-    padding: 44px 0;
-    border-bottom: 1px solid var(--border);
-  }
+/* ═══ SCOPES ═══ */
+.scope-group{margin-top:20px}
+.scope-title{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:500;margin-bottom:8px}
+.scopes{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.scope{background:var(--warm);border:1px solid var(--border);border-radius:100px;padding:5px 16px;font-size:0.8rem;color:var(--bark-soft);display:flex;align-items:center;gap:6px}
+.scope .dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
 
-  section:last-of-type { border-bottom: none; }
+/* ═══ DATA ═══ */
+.data-item{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;font-size:0.9rem;align-items:flex-start}
+.data-item:last-child{border-bottom:none}
+.data-item .arrow{color:var(--gold);font-weight:600;flex-shrink:0;margin-top:2px;font-size:0.8rem}
 
-  h2 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 1.15rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 18px;
-  }
+/* ═══ PRIVACY ═══ */
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.privacy-card{background:var(--warm);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;gap:10px;align-items:flex-start}
+.privacy-card .check{color:var(--gold);font-weight:700;font-size:1rem;flex-shrink:0;margin-top:1px}
+.privacy-card p{font-size:0.85rem;line-height:1.5;margin:0}
 
-  p { color: var(--text-muted); margin-bottom: 14px; }
-  p:last-child { margin-bottom: 0; }
+/* ═══ CONTACT ═══ */
+.contact-bar{background:var(--warm);border:1px solid var(--border);border-radius:12px;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-top:18px}
+.contact-bar a{text-decoration:none;color:var(--gold);font-size:0.88rem;font-weight:500;transition:opacity 0.2s}
+.contact-bar a:hover{opacity:0.7}
 
-  /* ── Feature cards ── */
-  .features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 6px;
-  }
+/* ═══ FOOTER ═══ */
+footer{padding:48px 32px;text-align:center;border-top:1px solid var(--border)}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--bark);letter-spacing:0.1em;margin-bottom:6px}
+.footer-brand em{color:var(--gold);font-style:normal}
+footer p{font-size:0.76rem;color:var(--bark-soft)}
+.footer-links{margin-top:12px;display:flex;gap:20px;justify-content:center}
+.footer-links a{font-size:0.76rem;text-decoration:none;color:var(--bark-soft);transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
 
-  .feature-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    transition: border-color 0.2s;
-  }
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-  .feature-card:hover { border-color: var(--accent); }
-
-  .feature-card .icon {
-    font-size: 20px;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  .feature-card h3 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    color: var(--text);
-  }
-
-  .feature-card p {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  /* ── Scope badges ── */
-  .scopes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 6px;
-  }
-
-  .scope {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 0.85rem;
-    font-family: 'DM Sans', monospace;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .scope .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  /* ── Data handling list ── */
-  .data-list {
-    list-style: none;
-    margin-top: 6px;
-  }
-
-  .data-list li {
-    position: relative;
-    padding: 10px 0 10px 24px;
-    color: var(--text-muted);
-    font-size: 0.92rem;
-    border-bottom: 1px solid rgba(48,54,61,0.5);
-  }
-
-  .data-list li:last-child { border-bottom: none; }
-
-  .data-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  /* ── Privacy section ── */
-  .privacy-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 6px;
-  }
-
-  .privacy-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: var(--surface);
-    border-radius: 10px;
-    padding: 16px;
-    border: 1px solid var(--border);
-  }
-
-  .privacy-item .check {
-    color: var(--green);
-    font-weight: 700;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .privacy-item p {
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* ── Contact ── */
-  .contact-bar {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 6px;
-  }
-
-  .contact-bar a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.92rem;
-    transition: opacity 0.2s;
-  }
-
-  .contact-bar a:hover { opacity: 0.8; }
-
-  /* ── Footer ── */
-  footer {
-    padding: 36px 0;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.82rem;
-  }
-
-  footer span { color: var(--accent); }
-
-  /* ── Responsive ── */
-  @media (max-width: 600px) {
-    .features, .privacy-grid { grid-template-columns: 1fr; }
-    .contact-bar { flex-direction: column; align-items: flex-start; }
-    h1 { font-size: 1.35rem; }
-  }
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:640px){
+  .hero{height:60vh;min-height:400px}
+  .hero-content{padding:0 24px 40px}
+  .feature-grid,.privacy-grid{grid-template-columns:1fr}
+  .gallery-collection.active{grid-template-columns:1fr 1fr}
+  .contact-bar{flex-direction:column;align-items:flex-start}
+  .nav-links{gap:16px}
+  .topnav{padding:14px 20px}
+  section{padding:56px 0}
+  .container{padding:0 20px}
+}
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- NAV -->
+<nav class="topnav" id="topnav">
+  <a href="#" class="nav-logo">KEY<span>LUME</span> STUDIO</a>
+  <div class="nav-links">
+    <a href="#gallery">Gallery</a>
+    <a href="#tools">Tools</a>
+    <a href="#privacy-policy">Privacy</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-  <header>
-    <div class="logo-row">
-      <div class="logo-icon">🔑</div>
-      <h1>KeyLume <span>Listing Manager</span></h1>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="keylume-icon-v2.jpg" alt="KeyLume Studio" class="hero-icon">
+    <h1>Key<em>Lume</em> Studio</h1>
+    <p class="hero-sub">Original impasto-style digital artwork for modern spaces</p>
+    <div class="hero-cta">
+      <a href="https://www.etsy.com/shop/KeyLumeStudio" class="btn-primary">Shop on Etsy</a>
+      <a href="#gallery" class="btn-ghost">View Collections</a>
     </div>
-    <p class="tagline">A private seller tool for managing digital artwork listings on Etsy</p>
-  </header>
+  </div>
+</header>
 
-  <!-- About -->
-  <section>
-    <h2>About This Tool</h2>
-    <p>KeyLume Listing Manager is a private, single-shop tool built for <strong style="color:var(--text)">KeyLumeStudio</strong> on Etsy. It helps streamline the process of preparing and managing listings for digital artwork and downloadable art files.</p>
-    <p>This tool assists with drafting listings, organizing product images, applying correct taxonomy and tags, and keeping inventory data in sync. <strong style="color:var(--text)">All listings are reviewed and published manually by the shop owner before going live.</strong></p>
-  </section>
+<!-- ABOUT -->
+<section>
+  <div class="container">
+    <span class="section-label">The Studio</span>
+    <h2>Art that feels <em>painted,</em> not printed</h2>
+    <p class="about-lead">KeyLume Studio creates original AI-generated artwork that captures the beauty of traditional impasto painting — thick palette knife textures, luminous golden hour light, and the quiet grandeur of the natural world.</p>
+    <p>From golden birch groves to rugged coastal cliffs, each collection is crafted with attention to composition, light, and emotion. Available as instant digital downloads on Etsy, our artwork prints beautifully on paper, canvas, or metal — and displays gorgeously on Samsung Frame and other Art TV systems.</p>
+  </div>
+</section>
 
-  <!-- Features -->
-  <section>
-    <h2>What It Does</h2>
-    <div class="features">
-      <div class="feature-card">
-        <span class="icon">📝</span>
-        <h3>Draft Preparation</h3>
-        <p>Helps prepare listing drafts with accurate titles, descriptions, tags, and taxonomy categories.</p>
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <span class="section-label">Collections</span>
+    <h2>Explore the <em>artwork</em></h2>
+    <p>Four collections, each with its own atmosphere and palette.</p>
+
+    <div class="collection-tabs">
+      <button class="tab active" onclick="showCollection('autumn')">Autumn Foliage</button>
+      <button class="tab" onclick="showCollection('birch')">Golden Birch</button>
+      <button class="tab" onclick="showCollection('coastal')">Rugged Coast</button>
+      <button class="tab" onclick="showCollection('falls')">Waterfalls</button>
+    </div>
+
+    <div class="gallery-collection active" id="col-autumn">
+      <div class="gallery-item"><img src="fr-01.jpg" alt="Misty Autumn Pond"><div class="item-label">Misty Autumn Pond</div></div>
+      <div class="gallery-item"><img src="fr-02.jpg" alt="Maple Grove Peak Color"><div class="item-label">Maple Grove, Peak Color</div></div>
+      <div class="gallery-item"><img src="fr-03.jpg" alt="Autumn Hilltop Panorama"><div class="item-label">Autumn Hilltop Panorama</div></div>
+    </div>
+
+    <div class="gallery-collection" id="col-birch">
+      <div class="gallery-item"><img src="gb-01.jpg" alt="Autumn Birch Forest"><div class="item-label">Autumn Birch Forest</div></div>
+      <div class="gallery-item"><img src="gb-02.jpg" alt="Birch Forest Clearing"><div class="item-label">Birch Forest Clearing</div></div>
+      <div class="gallery-item"><img src="gb-03.jpg" alt="Birch Forest Golden Hour"><div class="item-label">Birch Forest, Golden Hour</div></div>
+    </div>
+
+    <div class="gallery-collection" id="col-coastal">
+      <div class="gallery-item"><img src="rc-01.jpg" alt="Cliffs in Morning Mist"><div class="item-label">Cliffs in Morning Mist</div></div>
+      <div class="gallery-item"><img src="rc-02.jpg" alt="Castle Headland"><div class="item-label">Castle Headland</div></div>
+      <div class="gallery-item"><img src="rc-01.jpg" alt="Storm Watch"><div class="item-label">Storm Watch</div></div>
+    </div>
+
+    <div class="gallery-collection" id="col-falls">
+      <div class="gallery-item"><img src="wf-01.jpg" alt="Canyon Falls Plunge"><div class="item-label">Canyon Falls Plunge</div></div>
+      <div class="gallery-item"><img src="wf-02.jpg" alt="Canyon River Narrows"><div class="item-label">Canyon River Narrows</div></div>
+      <div class="gallery-item"><img src="wf-01.jpg" alt="Morning Cascade"><div class="item-label">Morning Cascade</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <span class="section-label">Listing Manager</span>
+    <h2>Private tools for <em>smarter</em> listings</h2>
+    <p>KeyLume Listing Manager is a private, single-shop tool built exclusively for KeyLumeStudio on Etsy. It streamlines the process of preparing and managing listings for digital artwork.</p>
+    <p><strong>All listings are reviewed and published manually by the shop owner before going live.</strong></p>
+    <div class="feature-grid">
+      <div class="feature"><h3>Draft Preparation</h3><p>Prepare listing drafts with accurate titles, descriptions, tags, and taxonomy.</p></div>
+      <div class="feature"><h3>Image Management</h3><p>Organize product photography and mockups across collections.</p></div>
+      <div class="feature"><h3>Inventory Sync</h3><p>Keep local inventory records in sync with live Etsy data.</p></div>
+      <div class="feature"><h3>Taxonomy & Tags</h3><p>Apply correct categories and optimized tags for discoverability.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PINTEREST -->
+<section>
+  <div class="container">
+    <span class="section-label">Pinterest Integration</span>
+    <h2>Automated <em>pin publishing</em></h2>
+    <p>KeyLumeStudio Automation connects to the Pinterest API to publish pins showcasing our art collections. This private integration is used exclusively by the shop owner to share artwork and link back to Etsy listings.</p>
+    <p>No user data is collected or accessed through the Pinterest integration.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- API SCOPES -->
+<section>
+  <div class="container">
+    <span class="section-label">API Access</span>
+    <h2>Minimum <em>permissions</em> requested</h2>
+    <p>Our applications request only the permissions necessary to function.</p>
+    <div class="scope-group">
+      <p class="scope-title">Etsy Scopes</p>
+      <div class="scopes">
+        <div class="scope"><span class="dot"></span>listings_r</div>
+        <div class="scope"><span class="dot"></span>listings_w</div>
+        <div class="scope"><span class="dot"></span>listings_d</div>
+        <div class="scope"><span class="dot"></span>shops_r</div>
       </div>
-      <div class="feature-card">
-        <span class="icon">🖼️</span>
-        <h3>Image Management</h3>
-        <p>Organizes and manages product photography and mockup images for listings.</p>
-      </div>
-      <div class="feature-card">
-        <span class="icon">📦</span>
-        <h3>Inventory Sync</h3>
-        <p>Keeps local inventory records in sync with the shop's listing data on Etsy.</p>
-      </div>
-      <div class="feature-card">
-        <span class="icon">🏷️</span>
-        <h3>Taxonomy &amp; Tags</h3>
-        <p>Applies correct Etsy categories and optimized tags to improve listing discoverability.</p>
+      <p class="scope-title">Pinterest Scopes</p>
+      <div class="scopes">
+        <div class="scope"><span class="dot"></span>pins:read</div>
+        <div class="scope"><span class="dot"></span>pins:write</div>
+        <div class="scope"><span class="dot"></span>boards:read</div>
+        <div class="scope"><span class="dot"></span>boards:write</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- API Scopes -->
-  <section>
-    <h2>API Scopes Requested</h2>
-    <p>This application requests only the minimum permissions necessary to function:</p>
-    <div class="scopes">
-      <div class="scope"><span class="dot"></span> listings_r</div>
-      <div class="scope"><span class="dot"></span> listings_w</div>
-      <div class="scope"><span class="dot"></span> listings_d</div>
-      <div class="scope"><span class="dot"></span> shops_r</div>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <!-- Data Handling -->
-  <section>
-    <h2>How Data Is Handled</h2>
-    <ul class="data-list">
-      <li>Used exclusively by one shop owner for a single Etsy store (KeyLumeStudio)</li>
-      <li>No user data is collected, stored, or shared with any third parties</li>
-      <li>OAuth tokens are stored securely and used only for authenticated API requests</li>
-      <li>No customer or buyer data is accessed or processed at any time</li>
-      <li>The tool runs locally and does not operate as a public-facing service</li>
-    </ul>
-  </section>
+<!-- DATA HANDLING -->
+<section>
+  <div class="container">
+    <span class="section-label">Data Handling</span>
+    <h2>How your data stays <em>safe</em></h2>
+    <div class="data-item"><span class="arrow">→</span><p>Used exclusively by one shop owner for a single Etsy store and Pinterest account</p></div>
+    <div class="data-item"><span class="arrow">→</span><p>No user data is collected, stored, or shared with any third parties</p></div>
+    <div class="data-item"><span class="arrow">→</span><p>OAuth tokens are stored securely and used only for authenticated API requests</p></div>
+    <div class="data-item"><span class="arrow">→</span><p>No customer or buyer data is accessed or processed at any time</p></div>
+    <div class="data-item"><span class="arrow">→</span><p>The tools run locally and do not operate as public-facing services</p></div>
+  </div>
+</section>
 
-  <!-- Privacy Policy -->
-  <section>
-    <h2>Privacy Policy</h2>
-    <p>KeyLume Listing Manager is a private tool with no external users. This policy describes how data is handled within the application.</p>
+<div class="divider"></div>
+
+<!-- PRIVACY -->
+<section id="privacy-policy">
+  <div class="container">
+    <span class="section-label">Privacy Policy</span>
+    <h2>Your privacy, <em>respected</em></h2>
+    <p>KeyLume Studio tools are private applications with no external users. This policy describes how data is handled within our applications, including integrations with Etsy and Pinterest.</p>
     <div class="privacy-grid">
-      <div class="privacy-item">
-        <span class="check">✓</span>
-        <p><strong style="color:var(--text)">No personal data collected.</strong> This tool does not collect, store, or process personal information from any Etsy buyers or visitors.</p>
-      </div>
-      <div class="privacy-item">
-        <span class="check">✓</span>
-        <p><strong style="color:var(--text)">No data sharing.</strong> No information obtained through the Etsy API is shared, sold, or disclosed to third parties.</p>
-      </div>
-      <div class="privacy-item">
-        <span class="check">✓</span>
-        <p><strong style="color:var(--text)">Secure storage.</strong> API credentials and OAuth tokens are encrypted and stored securely on private infrastructure.</p>
-      </div>
-      <div class="privacy-item">
-        <span class="check">✓</span>
-        <p><strong style="color:var(--text)">Data deletion.</strong> All cached listing data can be deleted at any time. Revoking API access immediately terminates all data access.</p>
-      </div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No personal data collected.</strong> We do not collect, store, or process personal information from any buyers, visitors, or platform users.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No data sharing.</strong> No information obtained through any API is shared, sold, or disclosed to third parties.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Secure storage.</strong> API credentials and OAuth tokens are encrypted and stored securely on private infrastructure.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Data deletion.</strong> All cached data can be deleted at any time. Revoking API access terminates all data access.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>No cookies or tracking.</strong> Our applications do not use cookies, analytics, tracking pixels, or any monitoring.</p></div>
+      <div class="privacy-card"><span class="check">✓</span><p><strong>Children's privacy.</strong> Our applications are not directed at children under 13 and we do not knowingly collect their information.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Terms of Service -->
-  <section>
-    <h2>Terms of Service</h2>
-    <p>This application is a private tool intended for use by the owner of KeyLumeStudio on Etsy. It is not a commercial product and is not available to the public.</p>
-    <p>Use of this tool is subject to the <a href="https://www.etsy.com/legal/api" style="color:var(--accent);text-decoration:none;">Etsy API Terms of Use</a>. The developer agrees to comply with all applicable Etsy policies, including rate limits, data handling requirements, and permitted use guidelines.</p>
-    <p>This tool is provided as-is with no warranties. The developer reserves the right to modify or discontinue the tool at any time.</p>
-  </section>
+<div class="divider"></div>
 
-  <!-- Contact -->
-  <section>
-    <h2>Contact</h2>
+<!-- TERMS -->
+<section>
+  <div class="container">
+    <span class="section-label">Terms of Service</span>
+    <h2>Simple <em>terms</em></h2>
+    <p>These applications are private tools intended for use by the owner of KeyLumeStudio. They are not commercial products and are not available to the public.</p>
+    <p>Use is subject to the <a href="https://www.etsy.com/legal/api" style="text-decoration:none;color:var(--gold)">Etsy API Terms</a> and <a href="https://developers.pinterest.com/terms/" style="text-decoration:none;color:var(--gold)">Pinterest Developer Terms</a>. The developer complies with all applicable platform policies.</p>
+    <p>These tools are provided as-is with no warranties. The developer reserves the right to modify or discontinue them at any time.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h2>Contact <em>KeyLume</em> Studio</h2>
     <div class="contact-bar">
-      <p style="margin:0;color:var(--text);font-weight:500;">KeyLume Studio</p>
-      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--bark);letter-spacing:0.06em">KeyLumeStudio</span>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
         <a href="https://www.etsy.com/shop/KeyLumeStudio">Etsy Shop ↗</a>
         <a href="mailto:keylumestudio@gmail.com">keylumestudio@gmail.com</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>© 2026 KeyLume Studio. Built with <span>♥</span> for better listing management.</p>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">KEY<em>LUME</em> STUDIO</div>
+  <p>Original impasto digital art for modern spaces</p>
+  <p>© 2026 KeyLume Studio. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#gallery">Gallery</a>
+    <a href="#tools">Tools</a>
+    <a href="#privacy-policy">Privacy</a>
+    <a href="https://www.etsy.com/shop/KeyLumeStudio">Etsy</a>
+  </div>
+</footer>
 
-</div>
+<script>
+// Nav scroll effect
+const nav=document.getElementById('topnav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
 
+// Gallery tabs
+function showCollection(name){
+  document.querySelectorAll('.gallery-collection').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('col-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
 </body>
 </html>
