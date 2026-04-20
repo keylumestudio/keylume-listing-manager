@@ -31,14 +31,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-links a:hover{color:var(--gold)}
 
 /* ═══ HERO ═══ */
-.hero{position:relative;height:70vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end}
-.hero-bg{position:absolute;inset:0;background:url('keylume-banner-v2.jpg') center/cover no-repeat}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,20,12,0.7) 0%,rgba(30,20,12,0.15) 50%,rgba(30,20,12,0.3) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 48px 56px;max-width:720px;animation:fadeUp 1s ease-out both}
-.hero-icon{width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.15)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;color:white;letter-spacing:0.04em;margin-bottom:8px;line-height:1.2}
+.hero{position:relative;overflow:hidden;background:var(--bark)}
+.hero-banner{width:100%;display:block;opacity:0.85}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,20,12,0.75) 0%,rgba(30,20,12,0.05) 40%,rgba(30,20,12,0.2) 100%)}
+.hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:0 48px 44px;max-width:720px;animation:fadeUp 1s ease-out both}
+.hero-icon{width:64px;height:64px;border-radius:14px;object-fit:cover;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.15)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:300;color:white;letter-spacing:0.04em;margin-bottom:6px;line-height:1.2}
 .hero h1 em{font-style:italic;color:var(--gold-light)}
-.hero-sub{color:rgba(255,255,255,0.75);font-size:1rem;font-weight:300;margin-bottom:28px}
+.hero-sub{color:rgba(255,255,255,0.75);font-size:0.95rem;font-weight:300;margin-bottom:24px}
 .hero-cta{display:inline-flex;gap:12px;flex-wrap:wrap}
 .hero-cta a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:12px 28px;border-radius:100px;font-weight:500;transition:all 0.35s}
 .btn-primary{background:var(--gold);color:var(--warm);border:1px solid var(--gold)}
@@ -128,8 +128,8 @@ footer p{font-size:0.76rem;color:var(--bark-soft)}
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:640px){
-  .hero{height:60vh;min-height:400px}
-  .hero-content{padding:0 24px 40px}
+  .hero-content{padding:0 24px 32px}
+  .hero-icon{width:52px;height:52px}
   .feature-grid,.privacy-grid{grid-template-columns:1fr}
   .gallery-collection.active{grid-template-columns:1fr 1fr}
   .contact-bar{flex-direction:column;align-items:flex-start}
@@ -155,7 +155,7 @@ footer p{font-size:0.76rem;color:var(--bark-soft)}
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-bg"></div>
+  <img src="keylume-banner-v2.jpg" alt="KeyLume Studio Banner" class="hero-banner">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <img src="keylume-icon-v2.jpg" alt="KeyLume Studio" class="hero-icon">
